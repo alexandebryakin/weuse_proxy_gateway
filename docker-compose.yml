@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+      - ./docker/certs:/etc/nginx/certs:ro
+
+  ssl-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: ssl-companion
+    volumes:
+      - ./docker/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - proxy
+    depends_on:
+      - proxy
+
+  weuse-production:
+    image: weuse-production
+    container_name: weuse-production
+    environment:
+      - VIRTUAL_HOST=weuse.ru
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=weuse.ru
+      - LETSENCRYPT_EMAIL=digitoider@gmail.com
