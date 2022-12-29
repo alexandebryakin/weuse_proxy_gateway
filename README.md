@@ -43,7 +43,7 @@ git clone https://github.com/alexandebryakin/weuse_proxy_gateway.git
 -> Change directory:
 
 ```bash
-cd weuse_proxy_gateway
+cd "$HOME/weuse_proxy_gateway/weuse-client"
 git clone https://github.com/alexandebryakin/polza.git
 
 cd polza
@@ -66,5 +66,6 @@ docker build -t weuse-production -f ./docker/Dockerfile.production .
 
 ```bash
 # -> use ssh-actions or whatever
+chmod +x ./weuse_proxy_gateway/weuse-client/deploy.production.sh
 ./weuse_proxy_gateway/weuse-client/deploy.production.sh
 ```

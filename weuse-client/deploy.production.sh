@@ -2,7 +2,7 @@ echo "weuse-client: Deploying changes..."
 
 # Pull changes from the main branch
 # cd ./polza
-cd $HOME/weuse_proxy_gateway/weuse-client/polza
+cd "$HOME/weuse_proxy_gateway/weuse-client/polza"
 git pull
 
 # Build the image with the new changes
