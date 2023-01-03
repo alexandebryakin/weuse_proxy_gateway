@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   proxy:
+    # [TAKEN FROM]: https://blog.harveydelaney.com/hosting-websites-using-docker-nginx/
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     ports:
@@ -14,6 +15,7 @@ services:
       - ./docker/certs:/etc/nginx/certs:ro
 
   ssl-companion:
+    # [TAKEN FROM]: https://blog.harveydelaney.com/hosting-websites-using-docker-nginx/
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: ssl-companion
     volumes:
@@ -25,8 +27,10 @@ services:
       - proxy
 
   weuse-production:
+    restart: always
     image: weuse-production
     container_name: weuse-production
+    network_mode: weuse_proxy_gateway_default
     environment:
       - VIRTUAL_HOST=weuse.ru
       - VIRTUAL_PORT=3000

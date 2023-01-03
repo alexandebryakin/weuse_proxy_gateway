@@ -45,11 +45,21 @@ git clone https://github.com/alexandebryakin/weuse_proxy_gateway.git
 ```bash
 cd "$HOME/weuse_proxy_gateway/weuse-client"
 git clone https://github.com/alexandebryakin/polza.git
-
-cd polza
 ```
 
 -> Copy ENV file into `polza`
+
+```bash
+cd polza
+touch .env
+nano .env
+```
+
+-> make sure the changes are saved into `.env` file
+
+```bash
+cat .env
+```
 
 ---
 
@@ -66,6 +76,26 @@ docker build -t weuse-production -f ./docker/Dockerfile.production .
 
 ```bash
 # -> use ssh-actions or whatever
-chmod +x ./weuse_proxy_gateway/weuse-client/deploy.production.sh
-./weuse_proxy_gateway/weuse-client/deploy.production.sh
+cd
+chmod +x $HOME/weuse_proxy_gateway/weuse-client/deploy.production.sh
+$HOME/weuse_proxy_gateway/weuse-client/deploy.production.sh
+```
+
+---
+
+# Other approach https://articles.wesionary.team/deploying-react-app-to-vps-server-with-nginx-with-ssl-b5d7dedc784f
+
+```bash
+sudo mkdir "/root/weuse_proxy_gateway/weuse-client/polza/build"
+```
+
+# Useful commands
+
+## Empty the trash
+
+```bash
+# [INSTALL `trash-cli` if not yet installed]:
+# sudo apt install trash-cli
+
+trash-empty
 ```

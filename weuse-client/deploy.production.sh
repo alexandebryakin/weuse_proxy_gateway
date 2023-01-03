@@ -5,6 +5,9 @@ echo "weuse-client: Deploying changes..."
 cd "$HOME/weuse_proxy_gateway/weuse-client/polza"
 git pull
 
+# TODO: we need to remove this folder before each manual `scp ...`
+# rm -rf ./build
+
 # Build the image with the new changes
 docker build -t weuse-production -f ./docker/Dockerfile.production .
 
