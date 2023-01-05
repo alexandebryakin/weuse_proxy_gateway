@@ -18,6 +18,8 @@ services:
     # [TAKEN FROM]: https://blog.harveydelaney.com/hosting-websites-using-docker-nginx/
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: ssl-companion
+    environment:
+      ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
     volumes:
       - ./docker/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -36,3 +38,14 @@ services:
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=weuse.ru
       - LETSENCRYPT_EMAIL=digitoider@gmail.com
+
+  # weuse-server-production:
+  #   restart: always
+  #   # image: weuse-production
+  #   container_name: weuse-server-production
+  #   network_mode: weuse_proxy_gateway_default
+  #   environment:
+  #     - VIRTUAL_HOST=api.weuse.ru
+  #     - VIRTUAL_PORT=3001
+  #     - LETSENCRYPT_HOST=api.weuse.ru
+  #     - LETSENCRYPT_EMAIL=digitoider@gmail.com
