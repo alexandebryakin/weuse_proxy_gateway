@@ -10,7 +10,7 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /etc/nginx/vhost.d
+      - ./vhost:/etc/nginx/vhost.d
       - /usr/share/nginx/html
       - ./docker/certs:/etc/nginx/certs:ro
 
@@ -18,8 +18,9 @@ services:
     # [TAKEN FROM]: https://blog.harveydelaney.com/hosting-websites-using-docker-nginx/
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: ssl-companion
-    environment:
-      ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
+    #environment:
+    #   TODO: comment out or remove after finishing everything up
+    #   ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
     volumes:
       - ./docker/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -32,20 +33,18 @@ services:
     restart: always
     image: weuse-production
     container_name: weuse-production
-    network_mode: weuse_proxy_gateway_default
+    expose:
+      - 80
     environment:
       - VIRTUAL_HOST=weuse.ru
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=weuse.ru
       - LETSENCRYPT_EMAIL=digitoider@gmail.com
 
-  # weuse-server-production:
-  #   restart: always
-  #   # image: weuse-production
-  #   container_name: weuse-server-production
-  #   network_mode: weuse_proxy_gateway_default
-  #   environment:
-  #     - VIRTUAL_HOST=api.weuse.ru
-  #     - VIRTUAL_PORT=3001
-  #     - LETSENCRYPT_HOST=api.weuse.ru
-  #     - LETSENCRYPT_EMAIL=digitoider@gmail.com
+volumes:
+  vhost:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
