@@ -37,6 +37,12 @@ Article: https://devsday.ru/blog/details/62100
 git clone https://github.com/alexandebryakin/weuse_proxy_gateway.git
 ```
 
+→ Create a docker network with the following name: `nginx-proxy`
+
+```bash
+docker network create -d bridge nginx-proxy
+```
+
 → Change directory:
 
 ```bash
@@ -206,6 +212,8 @@ if ($request_method = OPTIONS) {
 ```
 
 # IMPORTANT!!! an Article on how to setup nginx-proxy properly
+
+https://medium.webdoxclm.com/docker-compose-local-development-with-nginx-proxy-eb5090527527
 
 → !!! Each app should always run on port 80 for nginx-proxy to work
 For example:
