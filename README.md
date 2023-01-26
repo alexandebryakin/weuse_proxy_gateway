@@ -166,20 +166,6 @@ docker-compose -f "$HOME/weuse_proxy_gateway/polza_api/docker-compose.yml" \
                build
 ```
 
-```bash
-docker-compose -f "$HOME/weuse_proxy_gateway/polza_api/docker-compose.yml" \
-               -f "$HOME/weuse_proxy_gateway/polza_api/docker/production/docker-compose.yml" \
-               up
-```
-
-```bash
-# [DOESN'T WORK]
-# docker-compose -f "$HOME/weuse_proxy_gateway/docker-compose.yml" \
-#                -f "$HOME/weuse_proxy_gateway/polza_api/docker-compose.yml" \
-#                -f "$HOME/weuse_proxy_gateway/polza_api/docker/production/docker-compose.yml" \
-#                up
-```
-
 → CORS for the backend:
 within the `/weuse_proxy_gateway` directory make sure there is a `/vhost/default_location` file with the following content:
 
@@ -200,6 +186,22 @@ if ($request_method = OPTIONS) {
     return 204;
 }
 
+```
+
+→ Start all the BE containers
+
+```bash
+docker-compose -f "$HOME/weuse_proxy_gateway/polza_api/docker-compose.yml" \
+               -f "$HOME/weuse_proxy_gateway/polza_api/docker/production/docker-compose.yml" \
+               up
+```
+
+```bash
+# [DOESN'T WORK]
+# docker-compose -f "$HOME/weuse_proxy_gateway/docker-compose.yml" \
+#                -f "$HOME/weuse_proxy_gateway/polza_api/docker-compose.yml" \
+#                -f "$HOME/weuse_proxy_gateway/polza_api/docker/production/docker-compose.yml" \
+#                up
 ```
 
 # File Structure Notes
